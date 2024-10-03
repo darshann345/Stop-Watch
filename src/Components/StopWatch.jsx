@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const StopWatch = () => {
-    const [data, setData] = useState(0);
+    const [seconds, setSeconds] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
@@ -9,7 +9,7 @@ const StopWatch = () => {
 
         if (isRunning) {
             intervalId = setInterval(() => {
-                setData((prevData) => prevData + 1);
+                setSeconds((prev) => prev + 1);
             }, 1000);
         } else {
             clearInterval(intervalId);
@@ -30,13 +30,13 @@ const StopWatch = () => {
 
     const handleReset = () => {
         setIsRunning(false);
-        setData(0);
+        setSeconds(0);
     };
 
     return (
         <>
             <h1>Stop Watch</h1>
-            <p>Time: {formatTime(data)}</p>
+            <p>Time: {formatTime(seconds)}</p>
             <button style={{ width: "45px", height: "15px" }} onClick={handleStartStop}>
                 {isRunning ? "Stop" : "Start"}
             </button>&nbsp;
