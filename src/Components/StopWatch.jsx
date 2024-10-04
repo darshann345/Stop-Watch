@@ -14,6 +14,7 @@ const StopWatch = () => {
             clearInterval(interId)
         }
         return () => clearInterval(interId)
+        
     },[flag])
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds/60); 
