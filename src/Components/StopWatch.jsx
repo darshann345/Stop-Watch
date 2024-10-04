@@ -5,6 +5,9 @@ const Stopwatch = () => {
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
+
+
+    
     let timer;
     console.log("Check",timer)
     if (flag) {
