@@ -1,41 +1,48 @@
-import React, { useEffect } from "react";
-import {useState} from "react";
-const StopWatch = () => {
-    const [data,setData] = useState(0);
-    const [flag,setFlag] = useState(false)
-    useEffect(()=>{
-        let interId;
-        if(flag){
-            interId = setInterval(() => {
-                setData((prevData)=>prevData + 1)
-            },1000) 
-        }
-        else{
-            clearInterval(interId)
-        }
-        return () => clearInterval(interId)
-        
-    },[flag])
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds/60); 
-        const remainSeconds = seconds % 60;  
-        return `${minutes}:${remainSeconds < 10 ? "0" : ""}${remainSeconds}`
-    }
-    const handleStart = () => {
-        setFlag(!flag)
-    }
-    const handleReset = () => {
-        setFlag(false)
-        setData(0);
-    }
-    return(
-        <>
-            <h1>Stopwatch</h1>
-            <p>Time : {formatTime(data)}</p>
-            <button styles = {{width : "45px" , height : "15px"}} onClick = {handleStart}>{flag ? "Stop" : "Start"}</button>&nbsp;
-            <button styles = {{width : "45px" , height : "15px"}} onClick={handleReset}>Reset</button>&nbsp;
+import React, { useState, useEffect } from 'react';
 
-        </>
-    )
+const Stopwatch = () => {
+  const [time, setTime] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    console.log("Check",timer)
+    if (flag) {
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime + 1000);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [flag]);
+
+  const handleStart = () => {
+    setIsRunning(true);
+  };
+
+  const handleStop = () => {
+    setFlag(false);
+  };
+
+  const handleReset = () => {
+    setFlag(false);
+    setTime(0);
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds/60); 
+    const remainSeconds = seconds % 60;  
+    return `${minutes}:${remainSeconds < 10 ? "0" : ""}${remainSeconds}`
 }
-export default StopWatch;
+
+  return (
+    <div>
+      <h1>Stopwatch</h1>
+      <div>Time: {formatTime(time)}</div>
+      <button onClick={handleStart} disabled={isRunning}>Start</button>
+      <button onClick={handleStop} disabled={!isRunning}>Stop</button>
+      <button onClick={handleReset}>Reset</button>
+    </div>
+  );
+};
+
+export default Stopwatch;
